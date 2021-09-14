@@ -5,10 +5,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
-#create Oracle BI read-only connection information
-dsn=cx_Oracle.makedsn('10.117.9.146','1551',service_name='BIPRD01')
-conn=cx_Oracle.connect(user='robertsm',password='changeme123',dsn=dsn)
-c=conn.cursor()
+#create Oracle BI read-only connection information                                                                                                                                                                   
+dsn=cx_Oracle.makedsn('127.0.0.1','1551',service_name='HOST')                                                                                                                                                        
+conn=cx_Oracle.connect(user='username',password='password',dsn=dsn)                                                                                                                                                  
+c=conn.cursor()  
 
 #generate empty list of tuples
 dock_data=[("",)*5] *21 
