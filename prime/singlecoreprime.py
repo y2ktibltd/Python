@@ -3,6 +3,7 @@ from math import sqrt
 from sys import argv
 import time
 start_time=time.time()
+primes=[1,2]
 try:
         num=int(argv[1])
 except IndexError:
@@ -14,6 +15,8 @@ def isPrime(num):
             if i%j==0:
                 break
         else:
-            print (i,"is a prime")
+            primes.append(i)
 isPrime(num)
+for _ in primes:
+    print (_)
 print("--- %s seconds ---" % (time.time()-start_time))
