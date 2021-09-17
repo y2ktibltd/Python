@@ -17,6 +17,6 @@ def isPrime(num):
         else:
             primes.append(i)
 isPrime(num)
-for _ in primes:
-    print (_)
-print("--- %s seconds ---" % (time.time()-start_time))
+stop_time=time.time()
+print (primes)
+print("--- %s seconds ---" % (stop_time-start_time))
