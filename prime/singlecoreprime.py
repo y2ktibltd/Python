@@ -14,7 +14,7 @@ except ValueError:
     exit()
 def isPrime(num):
     for i in range(3,num,2):
-        for j in range(3,int(sqrt(i)),2):
+        for j in range(3,int(sqrt(i)+1),2):
             if i%j==0:
                 break
         else:
