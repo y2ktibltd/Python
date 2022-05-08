@@ -16,17 +16,18 @@ server=socket.gethostname()
 port=9999
 
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 print(f"Socket {port} Created")
 s.bind((server,port))
 print(f"Bound to {server}")
 s.listen()
 num_list=[_ for _ in range(1,num,2)]
 i=0
-print(num_list)
+#print(num_list)
 
 while i<len(num_list):
     c,addr=s.accept()
-    print(f"Sent {num_list[i]} to {addr}")
+    #print(f"Sent {num_list[i]} to {addr}")
     c.send(str(num_list[i]).encode('ascii'))
     i+=1
     c.close()
