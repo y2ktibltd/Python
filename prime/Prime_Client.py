@@ -11,10 +11,10 @@ while True:
     try:
         s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect((server,port))
-        message=s.recv(1024)
+        message=s.recv(1)
         message=int(message)
-        print(message)
-        print(type(message))
+#        print(message)
+#        print(type(message))
         s.close()
     except socket.error:
         print("Done")
