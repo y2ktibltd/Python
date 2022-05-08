@@ -26,6 +26,6 @@ i=0
 while i<len(num_list):
     c,addr=s.accept()
     print(f"Sent {num[i]} to {addr}")
-    c.sendall(str(num_list[i]).encode('ascii'))
+    c.send(str(num_list[i]).encode('ascii'))
     i+=1
     c.close()
