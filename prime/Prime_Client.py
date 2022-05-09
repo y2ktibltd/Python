@@ -8,19 +8,19 @@ port=9999
 primes=[]
 
 def isPrime(num):
-    for i in range(3,num,2):
-        for j in range(3,int(sqrt(i)+1),2):
-            if i%j==0:
+        for j in range(3,int(sqrt(num)+1),2):
+            if num%j==0:
                 break
         else:
-            primes.append(i)
+            primes.append(num)
 
 while True:
     try:
         s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.connect((server,port))
-        num=s.recv(128)
-        isPrime(int(num))
+        num=s.recv(16)
+        num=int(num)
+        isPrime(num)
         s.close()
     except socket.error:
         print("Done")
