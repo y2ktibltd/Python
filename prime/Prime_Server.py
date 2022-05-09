@@ -23,11 +23,13 @@ print(f"Bound to {server}")
 s.listen()
 num_list=[_ for _ in range(1,num,2)]
 i=0
-#print(num_list)
 
 while i<len(num_list):
     c,addr=s.accept()
-    #print(f"Sent {num_list[i]} to {addr}")
-    c.send(str(num_list[i]).encode('ascii'))
+    data=str(num_list[i])
+    buff_len=16-len(data)
+    buff="0"*buff_len
+    send=buff+data
+    c.send(send.encode('ascii'))
     i+=1
     c.close()
