@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import socket
 from sys import argv
-import time
+from time import time
 
 try:
             num=int(argv[1])
@@ -23,13 +23,16 @@ print(f"Bound to {server}")
 s.listen()
 num_list=[_ for _ in range(1,num,2)]
 i=0
-
+start=time()
 while i<len(num_list):
     c,addr=s.accept()
     data=str(num_list[i])
-    buff_len=16-len(data)
+    buff_len=9-len(data)
     buff="0"*buff_len
     send=buff+data
     c.send(send.encode('ascii'))
     i+=1
     c.close()
+stop=time()
+total_time=stop-start
+print(f"{total_time} seconds elapsed")
