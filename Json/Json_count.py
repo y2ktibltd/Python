@@ -18,5 +18,5 @@ print(f"{data}\n")
 print("This JSON file contains "+RED+BOLD+f"{element_count}"+END+" elements")
 i=1
 for obj in data:
-    print("Element",RED+BOLD,i,END,":\n",data[obj],"\n")
+    print("Element",RED+BOLD,i,END,":\n",obj,"\n")
     i+=1
