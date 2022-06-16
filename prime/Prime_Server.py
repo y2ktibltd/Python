@@ -2,7 +2,9 @@
 import socket
 from sys import argv
 from time import time
+from multiprocessing import Process
 from threading import Thread
+import os
 
 try:
             num=int(argv[1])
@@ -23,7 +25,12 @@ s.bind((server,port))
 print(f"Bound to {server}")
 s.listen()
 num_list=[_ for _ in range(1,num,2)]
-
+''' TO DO. SPLIT NUM_LST INTO EQUAL PARTS THEN SEND IN ONE BIG CHUNK TO TRY TO SPEEDUP PROGRAM
+for a in range(len(num_lst)):
+    for i in range(os.cpu_count()):
+        num_list[i].append(num_lst[a])
+exit()
+'''
 def send_send(num_list):
     i=0
     while i<len(num_list):
@@ -36,31 +43,25 @@ def send_send(num_list):
         i+=1
         c.close()
 
-t1=Thread(target=send_send,args=(num_list,))
-t2=Thread(target=send_send,args=(num_list,))
-t3=Thread(target=send_send,args=(num_list,))
-t4=Thread(target=send_send,args=(num_list,))
-t5=Thread(target=send_send,args=(num_list,))
-t6=Thread(target=send_send,args=(num_list,))
-t7=Thread(target=send_send,args=(num_list,))
-t8=Thread(target=send_send,args=(num_list,))
+processes=[]
+threads=[]
 start=time()
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-t6.start()
-t7.start()
-t8.start()
-t1.join()
-t2.join()
-t3.join()
-t4.join()
-t5.join()
-t6.join()
-t7.join()
-t8.join()
+
+for i in range(os.cpu_count()):
+    print(f"Registering thread {i}")
+    threads.append(Thread(target=send_send,args=(num_list,)))
+for i in range(os.cpu_count()):
+    print(f"Registering process {i}")
+    processes.append(Process(target=send_send,args=(num_list,)))
+
+for process in processes:
+    process.start()
+for thread in threads:
+    thread.start()
+for process in processes:
+    process.join()
+for thread in threads:
+    thread.join()
 
 stop=time()
 total_time=stop-start
