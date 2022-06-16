@@ -2,9 +2,11 @@
 from multiprocessing import process, cpu_count
 import socket
 from math import sqrt
+from multiprocessing import Process
 from threading import Thread
+import os
 
-server="192.168.1.30"
+server="192.168.1.42"
 port=9999
 primes=[]
 
@@ -29,27 +31,20 @@ def receive_numbers():
             print(primes)
             exit()
 
-t1=Thread(target=receive_numbers)
-t2=Thread(target=receive_numbers)
-t3=Thread(target=receive_numbers)
-t4=Thread(target=receive_numbers)
-t5=Thread(target=receive_numbers)
-t6=Thread(target=receive_numbers)
-t7=Thread(target=receive_numbers)
-t8=Thread(target=receive_numbers)
-t1.start()
-t2.start()
-t3.start()
-t4.start()
-t5.start()
-t6.start()
-t7.start()
-t8.start()
-t1.join()
-t2.join()
-t3.join()
-t4.join()
-t5.join()
-t6.join()
-t7.join()
-t8.join()
+processes=[]
+threads=[]
+
+for i in range(os.cpu_count()):
+    processes.append(Process(target=receive_numbers))
+for i in range(os.cpu_count()):
+    threads.append(Thread(target=receive_numbers))
+
+for process in processes:
+    process.start()
+for thread in threads:
+    thread.start()
+
+for process in processes:
+    process.join()
+for thread in threads:
+    thread.join()
